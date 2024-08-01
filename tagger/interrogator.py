@@ -257,6 +257,13 @@ class WaifuDiffusionInterrogator(Interrogator):
         if use_cpu:
             providers.pop(0)
 
+        # self.model = InferenceSession(str(model_path), providers=providers)
+        providers = [
+            ('CUDAExecutionProvider', {
+                'device_id': 0,
+            }),
+            'CPUExecutionProvider',
+            ]
         self.model = InferenceSession(str(model_path), providers=providers)
 
         print(f'Loaded {self.name} model from {model_path}')
