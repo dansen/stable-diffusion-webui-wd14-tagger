@@ -253,17 +253,11 @@ class WaifuDiffusionInterrogator(Interrogator):
 
         # https://onnxruntime.ai/docs/execution-providers/
         # https://github.com/toriato/stable-diffusion-webui-wd14-tagger/commit/e4ec460122cf674bbf984df30cdb10b4370c1224#r92654958
-        providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
-        if use_cpu:
-            providers.pop(0)
+        # providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
+        providers = ['CPUExecutionProvider']
+        # if use_cpu:
+        #     providers.pop(0)
 
-        # self.model = InferenceSession(str(model_path), providers=providers)
-        providers = [
-            ('CUDAExecutionProvider', {
-                'device_id': 0,
-            }),
-            'CPUExecutionProvider',
-            ]
         self.model = InferenceSession(str(model_path), providers=providers)
 
         print(f'Loaded {self.name} model from {model_path}')
